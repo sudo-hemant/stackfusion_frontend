@@ -7,6 +7,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 // import 'react-toastify/dist/ReactToastify.css'
 // toast.configure();
 
+import './UserForm.css'
+
 let redirect = false;
 
 const initialValues = {
@@ -46,7 +48,7 @@ const validate = values => {
         const epoch_seconds = new Date() - new Date(values.dob);
         let age = new Date(epoch_seconds);
         age = Math.abs(age.getUTCFullYear() - 1970);
-        
+
         if (age < 18) {
             errors.dob = 'Age should be above 18 !'
         }
@@ -67,11 +69,11 @@ const validate = values => {
 
 
 const UserForm = () => {
-    
+
 
     return (
         <div>
-            <h1> User Form</h1>
+            <h1 id="header"> User Form</h1>
 
             <Formik
                 initialValues={initialValues}
@@ -79,48 +81,56 @@ const UserForm = () => {
                 onSubmit={onSubmit}
             >
                 <Form>
-                    <div>
-                        <label htmlFor='name' > Name </label>
+                    <div className="input-box">
+                        <label htmlFor='name' > Name * </label>
                         <Field
                             type='text'
                             id='name'
                             name='name'
                         />
-                        <ErrorMessage name='name' />
+                        <div className="error-msg">
+                            <ErrorMessage name='name' />
+                        </div>
                     </div>
 
-                    <div>
-                        <label htmlFor="dob"> Date of birth </label>
+                    <div className="input-box">
+                        <label htmlFor="dob"> Date of birth * </label>
                         <Field
                             type="date"
                             id="dob"
                             name="dob"
                         />
-                        <ErrorMessage name='dob' />
+                        <div className="error-msg">
+                            <ErrorMessage name='dob' />
+                        </div>
                     </div>
 
-                    <div>
-                        <label htmlFor="email"> Email </label>
+                    <div className="input-box">
+                        <label htmlFor="email"> Email * </label>
                         <Field
                             type="email"
                             id="email"
                             name="email"
                         />
-                        <ErrorMessage name='email' />
+                        <div className="error-msg">
+                            <ErrorMessage name='email' />
+                        </div>
                     </div>
 
-                    <div>
-                        <label htmlFor="phone"> Phone No. </label>
+                    <div className="input-box">
+                        <label htmlFor="phone"> Phone No. * </label>
                         <Field
                             type="name"
                             id="phone"
                             name="phone"
                         />
-                        <ErrorMessage name='phone' />
+                        <div className="error-msg">
+                            <ErrorMessage name='phone' />
+                        </div>
                     </div>
 
-                    <Link onClick = { e => redirect ? e.preventDefault() : null } to = {`/submitted-forms`} >
-                        <button type="submit"> Submit </button>
+                    <Link onClick={e => redirect ? e.preventDefault() : null} to={`/submitted-forms`} >
+                        <button type="submit" id="submit-btn"> Submit </button>
                     </Link>
                 </Form>
             </Formik>

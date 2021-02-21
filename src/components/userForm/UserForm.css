@@ -1,0 +1,23 @@
+#header {
+  width: 450px;
+  height: 50px;
+  padding-left: 100px;
+  margin: 50px auto;
+}
+
+.input-box {
+    padding : 5px;
+    margin : 80px auto;
+    width: 500px;
+}
+
+.error-msg {
+    padding: 10px;
+}
+
+#submit-btn {
+    width : 100px;
+    height : 30px;
+    /* margin : auto auto; */
+    margin-left: 800px;
+}
