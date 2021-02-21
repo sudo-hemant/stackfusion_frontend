@@ -17,7 +17,6 @@ const App = () => {
 
         <Route path="/user-form" component={UserForm} />
         <Route path="/submitted-forms" component={SubmittedForms} />
-        {/* <Route path="/" exact component={} /> */}
 
         <Route render={ () => <h1> Error 404 ! Not found </h1> } />
 

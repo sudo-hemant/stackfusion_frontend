@@ -10,7 +10,7 @@ const SubmittedForms = () => {
 
     useEffect( () => {
         axios
-            .get(`http://localhost:5000/user/submitted-forms`)
+            .get(`https://stackfusion-backend.herokuapp.com/user/submitted-forms`)
             .then(response => {
                 console.log(response.data.forms);
                 setForms(response.data.forms)

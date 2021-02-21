@@ -9,6 +9,8 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 toast.configure();
 
+let redirect = false;
+
 const successNotification = () => {
     toast.success('Successfully submitted the form!', { autoClose: 2500 })
 }
@@ -17,8 +19,6 @@ const failedNotification = () => {
     toast.error('Invalid Phone Number, Please enter 10 digit mobile no!', { autoClose: 10000 })
 }
 
-
-let redirect = false;
 
 const initialValues = {
     name: '',
@@ -31,18 +31,18 @@ const onSubmit = values => {
     console.log('data', values);
 
     axios
-        .post(`http://localhost:5000/user/user-form`, values)
+        .post(`https://stackfusion-backend.herokuapp.com/user/user-form`, values)
         .then(response => {
             successNotification();
-            redirect = true
-            console.log(redirect);
-            console.log(response);
+            redirect = true;
+            // console.log(redirect);
+            // console.log(response);
         })
         .catch(error => {
             redirect = false;
             failedNotification()
-            console.log(error);
-            console.log(redirect);
+            // console.log(error);
+            // console.log(redirect);
         })
 
 }
