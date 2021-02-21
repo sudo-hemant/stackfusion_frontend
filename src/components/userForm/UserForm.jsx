@@ -50,7 +50,7 @@ const validate = values => {
         age = Math.abs(age.getUTCFullYear() - 1970);
 
         if (age < 18) {
-            errors.dob = 'Age should be above 18 !'
+            errors.dob = 'Age should be above 18'
         }
     }
 
@@ -129,7 +129,7 @@ const UserForm = () => {
                         </div>
                     </div>
 
-                    <Link onClick={e => redirect ? e.preventDefault() : null} to={`/submitted-forms`} >
+                    <Link onClick={e => (redirect) ? e.preventDefault() : null} to={`/submitted-forms`} >
                         <button type="submit" id="submit-btn"> Submit </button>
                     </Link>
                 </Form>

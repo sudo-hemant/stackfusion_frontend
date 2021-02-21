@@ -7,8 +7,20 @@
 
 .input-box {
     padding : 5px;
-    margin : 80px auto;
-    width: 500px;
+    margin : 50px auto;
+    width: 200px;
+}
+
+.input-box label {
+    /* background-color: red; */
+    padding: 5px;
+    margin: 10px;
+}
+
+.input-box input {
+    padding: 10px;
+    width: 250px;
+    margin-right: 50px;
 }
 
 .error-msg {
@@ -16,8 +28,12 @@
 }
 
 #submit-btn {
-    width : 100px;
-    height : 30px;
+    width : 200px;
+    height : 60px;
     /* margin : auto auto; */
     margin-left: 800px;
+    border-radius: 10px;
+    border-width: 1.5px;
+    font-size: 30px;
+    background-color: turquoise;
 }
