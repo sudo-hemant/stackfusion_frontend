@@ -3,11 +3,20 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
-// import { toast } from 'react-toastify'
-// import 'react-toastify/dist/ReactToastify.css'
-// toast.configure();
-
 import './UserForm.css'
+
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+toast.configure();
+
+const successNotification = () => {
+    toast.success('Successfully submitted the form!', { autoClose: 2500 })
+}
+
+const failedNotification = () => {
+    toast.error('Invalid Phone Number, Please enter 10 digit mobile no!', { autoClose: 10000 })
+}
+
 
 let redirect = false;
 
@@ -24,11 +33,16 @@ const onSubmit = values => {
     axios
         .post(`http://localhost:5000/user/user-form`, values)
         .then(response => {
-            console.log(response);
+            successNotification();
             redirect = true
+            console.log(redirect);
+            console.log(response);
         })
         .catch(error => {
+            redirect = false;
+            failedNotification()
             console.log(error);
+            console.log(redirect);
         })
 
 }
@@ -129,9 +143,9 @@ const UserForm = () => {
                         </div>
                     </div>
 
-                    <Link onClick={e => (redirect) ? e.preventDefault() : null} to={`/submitted-forms`} >
+                    {/* <Link onClick={e => (redirect) ? e.preventDefault() : null} to={`/submitted-forms`} > */}
                         <button type="submit" id="submit-btn"> Submit </button>
-                    </Link>
+                    {/* </Link> */}
                 </Form>
             </Formik>
         </div >
