@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+// import { toast } from 'react-toastify'
+// import 'react-toastify/dist/ReactToastify.css'
+// toast.configure();
 
-toast.configure()
+let redirect = false;
 
 const initialValues = {
     name: '',
@@ -16,6 +18,17 @@ const initialValues = {
 
 const onSubmit = values => {
     console.log('data', values);
+
+    axios
+        .post(`http://localhost:5000/user/user-form`, values)
+        .then(response => {
+            console.log(response);
+            redirect = true
+        })
+        .catch(error => {
+            console.log(error);
+        })
+
 }
 
 const validate = values => {
@@ -27,15 +40,16 @@ const validate = values => {
 
     if (!values.dob) {
         errors.dob = 'Required';
-    }
-    // TODO:    ERROR
-
-    // else if (!/^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\d\d$/i.test(values.dob)) {
-    //     errors.dob = 'Invalid Date of birth';
-    // } 
-    else if (false) {
-        // TODO:    check if age is greater than 18 or not
-        console.log('checking');
+    } else if (!/^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/i.test(values.dob)) {
+        errors.dob = 'Invalid Date of birth';
+    } else {
+        const epoch_seconds = new Date() - new Date(values.dob);
+        let age = new Date(epoch_seconds);
+        age = Math.abs(age.getUTCFullYear() - 1970);
+        
+        if (age < 18) {
+            errors.dob = 'Age should be above 18 !'
+        }
     }
 
     if (!values.email) {
@@ -49,11 +63,11 @@ const validate = values => {
     }
 
     return errors
-
 }
 
 
 const UserForm = () => {
+    
 
     return (
         <div>
@@ -71,12 +85,8 @@ const UserForm = () => {
                             type='text'
                             id='name'
                             name='name'
-                            // onChange={formik.handleChange}
-                            // onBlur={formik.handleBlur}
-                            // value={formik.values.name}
                         />
                         <ErrorMessage name='name' />
-                        {/* {formik.touched && formik.touched.name && formik.errors && formik.errors.name ? <div> {formik.error.name} </div> : null} */}
                     </div>
 
                     <div>
@@ -85,12 +95,8 @@ const UserForm = () => {
                             type="date"
                             id="dob"
                             name="dob"
-                            // onChange={formik.handleChange}
-                            // onBlur={formik.handleBlur}
-                            // value={formik.values.dob}
                         />
                         <ErrorMessage name='dob' />
-                        {/* {formik.touched && formik.touched.dob && formik.errors && formik.error.dob ? <div> {formik.error.dob} </div> : null} */}
                     </div>
 
                     <div>
@@ -99,12 +105,8 @@ const UserForm = () => {
                             type="email"
                             id="email"
                             name="email"
-                            // onChange={formik.handleChange}
-                            // onBlur={formik.handleBlur}
-                            // value={formik.values.email}
                         />
                         <ErrorMessage name='email' />
-                        {/* {formik.touched && formik.touched.email && formik.errors && formik.error.email ? <div> {formik.error.email} </div> : null} */}
                     </div>
 
                     <div>
@@ -113,15 +115,13 @@ const UserForm = () => {
                             type="name"
                             id="phone"
                             name="phone"
-                            // onChange={formik.handleChange}
-                            // onBlur={formik.handleBlur}
-                            // value={formik.values.phone}
                         />
                         <ErrorMessage name='phone' />
-                        {/* {formik.touched && formik.touched.phone && formik.errors && formik.error.phone ? <div> {formik.error.phone} </div> : null} */}
                     </div>
 
-                    <button type="submit"> Submit </button>
+                    <Link onClick = { e => redirect ? e.preventDefault() : null } to = {`/submitted-forms`} >
+                        <button type="submit"> Submit </button>
+                    </Link>
                 </Form>
             </Formik>
         </div >

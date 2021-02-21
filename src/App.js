@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom'; 
 
 import UserForm from './components/userForm/UserForm'
+import SubmittedForms from './components/submittedForms/SubmittedForms'
 
 // import logo from './logo.svg';
 // import './App.css';
@@ -13,6 +14,7 @@ const App = () => {
       <Switch>
 
         <Route path="/user-form" component={UserForm} />
+        <Route path="/submitted-forms" component={SubmittedForms} />
         {/* <Route path="/" exact component={} /> */}
 
         <Route render={ () => <h1> Error 404 ! Not found </h1> } />
